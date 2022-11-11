@@ -1,0 +1,1 @@
+# silica-coated-GNRs-Prediction
