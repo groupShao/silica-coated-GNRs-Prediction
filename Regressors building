@@ -1,0 +1,18 @@
+import pandas as pd
+import xgboost as xgb
+import sklearn
+from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier,plot_importance
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_absolute_error,accuracy_score,roc_auc_score
+from sklearn.model_selection import RepeatedKFold,StratifiedKFold,GridSearchCV
+from sklearn import metrics
+import numpy as np
+
+
+data = pd.read_csv('Au_SiO2_data.csv')
+data_clear=data.dropna(axis=0, how='any', subset=['Shell'])
+X = data_clear.copy()
+X["TEOS Solvent encoded"] = X.groupby("TEOS Solvent")["Shell"].transform("mean")
+X=X.drop("TEOS Solvent",axis=1)
+target=X.pop("Shell")
